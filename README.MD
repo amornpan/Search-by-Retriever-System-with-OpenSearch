@@ -2,7 +2,9 @@
 
 ระบบค้นหาข้อมูลอัจฉริยะที่ใช้ **OpenSearch** และ **Sentence Transformers** สำหรับการค้นหาข้อมูลด้วย vector embeddings และ semantic similarity
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/your-username/Search-by-Retriever-System-with-OpenSearch/blob/main/opensearch_retriever.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/amornpan/Search-by-Retriever-System-with-OpenSearch/blob/master/opensearch_retriever.ipynb)
+
+> ✅ **พร้อมใช้งาน**: คลิกปุ่มข้างบนเพื่อเปิด notebook ใน Google Colab ทันที!
 
 ## 📋 สารบัญ
 
@@ -58,8 +60,15 @@ datasets                 # Dataset handling (ถ้าต้องการ)
 
 ### ⚡ วิธีที่ 1: ใช้งานใน Google Colab (แนะนำ)
 
+#### 🚀 เปิดใน Colab ทันที (ไม่ต้องมี GitHub):
+1. ไปที่ [Google Colab](https://colab.research.google.com/)
+2. คลิก **"Upload"** 
+3. อัปโหลดไฟล์ `opensearch_retriever.ipynb` จากเครื่องคุณ
+4. รันแต่ละ cell ตามลำดับ
+
+#### 📁 ใช้ผ่าน GitHub (แนะนำ):
 1. คลิกที่ปุ่ม **"Open in Colab"** ด้านบน
-2. ไฟล์ `opensearch_retriever.ipynb` จะเปิดใน Google Colab
+2. ไฟล์จะเปิดใน Google Colab อัตโนมัติ
 3. รันแต่ละ cell ตามลำดับ
 4. ไม่ต้องติดตั้งอะไรเพิ่ม - ใช้งานได้ทันที!
 
@@ -96,6 +105,11 @@ jupyter notebook opensearch_retriever.ipynb
 - ✅ ใช้ GPU ฟรีสำหรับการประมวลผล
 - ✅ แชร์และทำงานร่วมกันได้ง่าย
 - ✅ บันทึกอัตโนมัติใน Google Drive
+
+#### 🚀 คลิกเพื่อเปิด Colab ทันที:
+[![Open Blank Notebook](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/)
+
+> 📝 **วิธีใช้**: หลังจากคลิกลิงก์ข้างบน ให้คลิก "Upload" และเลือกไฟล์ `opensearch_retriever.ipynb` จากเครื่องคุณ
 
 ### ขั้นตอนการใช้งาน:
 1. เปิดลิงก์ Colab หรืออัปโหลดไฟล์ `.ipynb`
@@ -464,7 +478,8 @@ Made with ❤️ in Thailand 🇹🇭
 
 ## 🔗 Quick Links
 
-- 🚀 [เปิดใน Google Colab](https://colab.research.google.com/github/your-username/Search-by-Retriever-System-with-OpenSearch/blob/main/opensearch_retriever.ipynb)
+- 🚀 [เปิดใน Google Colab](https://colab.research.google.com/github/amornpan/Search-by-Retriever-System-with-OpenSearch/blob/master/opensearch_retriever.ipynb)
+- 📋 [GitHub Repository](https://github.com/amornpan/Search-by-Retriever-System-with-OpenSearch)
 - 📖 [OpenSearch Documentation](https://opensearch.org/docs/)
 - 🤗 [Sentence Transformers Documentation](https://www.sbert.net/)
 - 💡 [Hugging Face Models](https://huggingface.co/sentence-transformers)
