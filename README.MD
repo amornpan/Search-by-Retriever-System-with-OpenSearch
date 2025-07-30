@@ -1,39 +1,40 @@
 # 🔍 Search by Retriever System with OpenSearch
 
-ระบบค้นหาข้อมูลอัจฉริยะที่ใช้ **OpenSearch** และ **Sentence Transformers** สำหรับการค้นหาข้อมูลด้วย semantic similarity และ keyword matching
+ระบบค้นหาข้อมูลอัจฉริยะที่ใช้ **OpenSearch** และ **Sentence Transformers** สำหรับการค้นหาข้อมูลด้วย vector embeddings และ semantic similarity
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/your-username/Search-by-Retriever-System-with-OpenSearch/blob/main/opensearch_retriever.ipynb)
 
 ## 📋 สารบัญ
 
 - [คุณสมบัติหลัก](#-คุณสมบัติหลัก)
-- [เทคโนโลยีที่ใช้](#-เทคโนโลジีที่ใช้)
-- [การติดตั้ง](#-การติดตั้ง)
-- [การตั้งค่า](#-การตั้งค่า)
-- [การใช้งาน](#-การใช้งาน)
+- [เทคโนโลยีที่ใช้](#-เทคโนโลยีที่ใช้)
+- [การเริ่มต้นใช้งาน](#-การเริ่มต้นใช้งาน)
+- [การใช้งานใน Google Colab](#-การใช้งานใน-google-colab)
+- [การใช้งานแบบ Local](#-การใช้งานแบบ-local)
+- [โครงสร้างของโปรเจค](#-โครงสร้างของโปรเจค)
+- [คำอธิบายแต่ละ Cell](#-คำอธิบายแต่ละ-cell)
 - [ตัวอย่างการใช้งาน](#-ตัวอย่างการใช้งาน)
-- [API Reference](#-api-reference)
-- [การพัฒนาต่อ](#-การพัฒนาต่อ)
 - [การแก้ไขปัญหา](#-การแก้ไขปัญหา)
+- [การพัฒนาต่อ](#-การพัฒนาต่อ)
 
 ## ✨ คุณสมบัติหลัก
 
-### 🎯 3 รูปแบบการค้นหา
-- **🧠 Semantic Search** - ค้นหาด้วยความหมายและบริบท
-- **🔤 Keyword Search** - ค้นหาด้วยคำสำคัญแบบดั้งเดิม
-- **⚡ Hybrid Search** - ผสมผสานทั้งสองแบบเพื่อผลลัพธ์ที่ดีที่สุด
+### 🎯 Vector Search System
+- **📄 Document Indexing** - เก็บเอกสารพร้อม vector embeddings
+- **🔍 Semantic Search** - ค้นหาด้วยความหมายและบริบท  
+- **🧠 Multilingual Support** - รองรับภาษาไทยและอังกฤษ
+- **⚡ Real-time Indexing** - เพิ่มเอกสารใหม่ได้ทันที
 
-### 📊 การวิเคราะห์และรายงาน
-- เปรียบเทียบประสิทธิภาพการค้นหา
-- แสดงคะแนนความคล้าย (similarity scores)
-- วิเคราะห์เวลาในการค้นหา
-
-### 🛠️ การจัดการข้อมูล
-- เพิ่มเอกสารใหม่ (รายการเดียวหรือหลายรายการ)
-- ดูสถิติและข้อมูล index
-- ลบและจัดการเอกสาร
+### 📊 การจัดการข้อมูล
+- สร้าง vector embeddings จากข้อความ
+- จัดเก็บข้อมูลใน OpenSearch
+- ค้นหาด้วย cosine similarity
+- แสดงผลพร้อมคะแนนความคล้าย
 
 ### 🌏 รองรับหลายภาษา
-- รองรับภาษาไทยและอังกฤษ
-- ใช้ multilingual model สำหรับความแม่นยำสูง
+- ใช้ `paraphrase-multilingual-MiniLM-L12-v2` model
+- สนับสนุน 50+ ภาษา
+- เหมาะสำหรับเนื้อหาภาษาไทย
 
 ## 🔧 เทคโนโลยีที่ใช้
 
@@ -46,22 +47,31 @@
 
 ### 📦 Python Libraries
 ```
-opensearch-py          # OpenSearch client
-sentence-transformers  # Text embedding models
-pandas                 # Data manipulation
-numpy                  # Numerical computations
-datasets              # Dataset handling
+opensearch-py==2.4.0      # OpenSearch client
+sentence-transformers     # Text embedding models  
+pandas                   # Data manipulation
+numpy                    # Numerical computations
+datasets                 # Dataset handling (ถ้าต้องการ)
 ```
 
-## 🚀 การติดตั้ง
+## 🚀 การเริ่มต้นใช้งาน
 
-### 1. Clone Repository
+### ⚡ วิธีที่ 1: ใช้งานใน Google Colab (แนะนำ)
+
+1. คลิกที่ปุ่ม **"Open in Colab"** ด้านบน
+2. ไฟล์ `opensearch_retriever.ipynb` จะเปิดใน Google Colab
+3. รันแต่ละ cell ตามลำดับ
+4. ไม่ต้องติดตั้งอะไรเพิ่ม - ใช้งานได้ทันที!
+
+### 💻 วิธีที่ 2: ใช้งานแบบ Local
+
+1. **Clone Repository**
 ```bash
 git clone <repository-url>
-cd search-by-retriever-opensearch
+cd Search-by-Retriever-System-with-OpenSearch
 ```
 
-### 2. สร้าง Virtual Environment
+2. **สร้าง Virtual Environment**
 ```bash
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
@@ -69,278 +79,392 @@ source venv/bin/activate  # Linux/Mac
 venv\Scripts\activate     # Windows
 ```
 
-### 3. ติดตั้ง Dependencies
+3. **ติดตั้ง Dependencies**
 ```bash
-pip install -r requirements.txt
+pip install opensearch-py sentence-transformers pandas numpy datasets
 ```
 
-### 4. เริ่มต้น Jupyter Notebook
+4. **เริ่มต้น Jupyter Notebook**
 ```bash
-jupyter notebook
+jupyter notebook opensearch_retriever.ipynb
 ```
 
-## ⚙️ การตั้งค่า
+## 📱 การใช้งานใน Google Colab
 
-### 1. กำหนดค่า OpenSearch
+### ข้อดีของการใช้ Colab:
+- ✅ ไม่ต้องติดตั้งอะไรในเครื่อง
+- ✅ ใช้ GPU ฟรีสำหรับการประมวลผล
+- ✅ แชร์และทำงานร่วมกันได้ง่าย
+- ✅ บันทึกอัตโนมัติใน Google Drive
 
-แก้ไขค่าตัวแปรใน notebook:
+### ขั้นตอนการใช้งาน:
+1. เปิดลิงก์ Colab หรืออัปโหลดไฟล์ `.ipynb`
+2. ดำเนินการตามคำแนะนำในแต่ละ cell
+3. แก้ไข `OPENSEARCH_INDEX` เป็นชื่อของคุณ
+4. รัน cell ทีละตัวตามลำดับ
 
+## 🏗️ โครงสร้างของโปรเจค
+
+```
+Search-by-Retriever-System-with-OpenSearch/
+│
+├── opensearch_retriever.ipynb    # Main notebook สำหรับ Google Colab
+├── README.md                     # ไฟล์นี้
+├── requirements.txt              # Python dependencies (สำหรับ local)
+└── data/                         # ตัวอย่างข้อมูล (ถ้ามี)
+```
+
+## 📖 คำอธิบายแต่ละ Cell
+
+### Cell 1: Title และ Introduction
+- **คำอธิบาย**: แนะนำโปรเจคและการตั้งค่าพื้นฐาน
+- **เนื้อหา**: คำอธิบายระบบและ OpenSearch endpoint
+- **การใช้งาน**: อ่านเพื่อทำความเข้าใจโปรเจค
+
+### Cell 2: การติดตั้ง Libraries
 ```python
-# การตั้งค่า OpenSearch
+!pip install opensearch-py sentence-transformers datasets pandas numpy
+```
+- **คำอธิบาย**: ติดตั้ง libraries ที่จำเป็นทั้งหมด
+- **เวลาประมาณ**: 2-3 นาที
+- **หมายเหตุ**: ใน Colab จะติดตั้งอัตโนมัติ
+
+### Cell 3: Import Libraries และ Configuration
+```python
+import json, pandas as pd, numpy as np
+from sentence_transformers import SentenceTransformer
+from opensearchpy import OpenSearch, RequestsHttpConnection
+
 OPENSEARCH_ENDPOINT = "http://34.101.178.186:9200"
-OPENSEARCH_INDEX = "yourname_doc_index"  # ⚠️ เปลี่ยนเป็นชื่อของคุณ
+OPENSEARCH_INDEX = "yourname_doc_index"  # ⚠️ เปลี่ยนชื่อ!
 ```
+- **คำอธิบาย**: นำเข้า libraries และกำหนดค่าการเชื่อมต่อ
+- **สิ่งที่ต้องแก้**: เปลี่ยน `yourname` เป็นชื่อของคุณ
+- **ผลลัพธ์**: แสดง endpoint และ index name
 
-### 2. ตรวจสอบการเชื่อมต่อ
-
-รัน cell ตรวจสอบการเชื่อมต่อเพื่ออให้แน่ใจว่าสามารถเชื่อมต่อ OpenSearch ได้:
-
+### Cell 4: การเชื่อมต่อ OpenSearch
 ```python
-# ทดสอบการเชื่อมต่อ
-info = client.info()
-print(f"✅ เชื่อมต่อสำเร็จ! OpenSearch Version: {info['version']['number']}")
+client = OpenSearch(
+    hosts=[{'host': host, 'port': port}],
+    http_compress=True,
+    use_ssl=False,
+    verify_certs=False,
+    connection_class=RequestsHttpConnection,
+    timeout=60
+)
 ```
+- **คำอธิบาย**: สร้าง client เชื่อมต่อกับ OpenSearch
+- **การทดสอบ**: เรียก `client.info()` เพื่อทดสอบการเชื่อมต่อ
+- **ผลลัพธ์**: ✅ แสดงข้อมูล OpenSearch version
 
-### 3. โหลด Model
-
-ระบบจะโหลด Sentence Transformer model อัตโนมัติ:
-- **Model**: `paraphrase-multilingual-MiniLM-L12-v2`
-- **ขนาด Embedding**: 384 dimensions
-- **รองรับภาษา**: 50+ ภาษา รวมถึงไทยและอังกฤษ
-
-## 💻 การใช้งาน
-
-### 1. เปิด Jupyter Notebook
-```bash
-jupyter notebook SENT_Hands_on_3_Search_by_Retriever.ipynb
-```
-
-### 2. รัน Cells ตามลำดับ
-- เริ่มจาก cell แรก (การติดตั้ง libraries)
-- รันทีละ cell จนถึงสุดท้าย
-- ทุก cell มีคำอธิบายภาษาไทย
-
-### 3. ทดสอบระบบ
+### Cell 5: โหลด Sentence Transformer Model
 ```python
-# ทดสอบการค้นหา
-query = "ปัญญาประดิษฐ์"
-results = hybrid_search(query, top_k=5)
+model = SentenceTransformer('sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2')
 ```
+- **คำอธิบาย**: โหลดโมเดลสำหรับสร้าง text embeddings
+- **Model**: Multilingual model รองรับภาษาไทย
+- **ขนาด vector**: 384 dimensions
+- **เวลา**: 1-2 นาที (ครั้งแรก)
+
+### Cell 6: สร้าง Index Schema
+```python
+index_mapping = {
+    "mappings": {
+        "properties": {
+            "embedding": {
+                "type": "dense_vector",
+                "dims": 384,
+                "similarity": "cosine"
+            }
+            # ... other fields
+        }
+    }
+}
+```
+- **คำอธิบาย**: กำหนดโครงสร้างของ index ใน OpenSearch
+- **สำคัญ**: กำหนด vector field สำหรับการค้นหา
+- **การทำงาน**: ลบ index เก่า (ถ้ามี) และสร้างใหม่
+
+### Cell 7: เตรียมข้อมูลตัวอย่าง
+```python
+sample_documents = [
+    {
+        "id": "doc_001",
+        "title": "การเรียนรู้ของเครื่อง (Machine Learning)",
+        "content": "การเรียนรู้ของเครื่อง...",
+        "category": "AI/ML"
+    },
+    # ... more documents
+]
+```
+- **คำอธิบาย**: สร้างข้อมูลตัวอย่าง 5 เอกสาร
+- **หัวข้อ**: AI/ML, NLP, Database, Web Dev, Cybersecurity
+- **ภาษา**: เนื้อหาภาษาไทย
+
+### Cell 8: สร้าง Embeddings และ Index ข้อมูล
+```python
+def create_document_embedding(title: str, content: str) -> List[float]:
+    combined_text = f"{title} {content}"
+    embedding = model.encode(combined_text)
+    return embedding.tolist()
+```
+- **คำอธิบาย**: แปลงเอกสารเป็น vector embeddings และเก็บใน OpenSearch
+- **กระบวนการ**: 
+  1. รวม title + content
+  2. สร้าง embedding
+  3. Index เข้า OpenSearch
+- **ผลลัพธ์**: ✅ Indexed documents พร้อมใช้งาน
+
+### Cell 9: สรุปและขั้นตอนถัดไป
+- **คำอธิบาย**: สรุปการทำงานและแนะแนวทางพัฒนาต่อ
+- **เนื้อหา**: รายการสิ่งที่สามารถทำต่อได้
+- **สถานะ**: ระบบพร้อมใช้งาน
 
 ## 🎯 ตัวอย่างการใช้งาน
 
-### การค้นหาแบบ Semantic
+### การทดสอบหลังจากรัน Notebook
+
 ```python
-# ค้นหาด้วยความหมาย
-results = semantic_search("การเรียนรู้ของเครื่อง", top_k=3)
-for result in results:
-    print(f"Title: {result['document']['title']}")
-    print(f"Score: {result['score']:.4f}")
-    print(f"Content: {result['document']['content'][:100]}...")
+# ทดสอบการค้นหา (เพิ่ม cell ใหม่)
+def search_documents(query_text, top_k=3):
+    # สร้าง embedding สำหรับ query
+    query_embedding = model.encode(query_text).tolist()
+    
+    # ค้นหาใน OpenSearch
+    search_body = {
+        "query": {
+            "knn": {
+                "embedding": {
+                    "vector": query_embedding,
+                    "k": top_k
+                }
+            }
+        },
+        "_source": ["title", "content", "category"]
+    }
+    
+    response = client.search(
+        index=OPENSEARCH_INDEX,
+        body=search_body
+    )
+    
+    return response['hits']['hits']
+
+# ทดสอบการค้นหา
+results = search_documents("ปัญญาประดิษฐ์", top_k=3)
+for hit in results:
+    doc = hit['_source']
+    score = hit['_score']
+    print(f"Title: {doc['title']}")
+    print(f"Score: {score:.4f}")
+    print(f"Category: {doc['category']}")
     print("-" * 50)
 ```
 
-### การค้นหาแบบ Keyword
-```python
-# ค้นหาด้วยคำสำคัญ
-results = keyword_search("machine learning", top_k=3)
-display_search_results(results, "Keyword Search")
-```
-
-### การค้นหาแบบ Hybrid
-```python
-# ค้นหาแบบผสมผสาน (แนะนำ)
-results = hybrid_search("ฐานข้อมูล", top_k=5, semantic_weight=0.7)
-display_search_results(results, "Hybrid Search")
-```
-
 ### การเพิ่มเอกสารใหม่
+
 ```python
 # เพิ่มเอกสารใหม่
-add_new_document(
-    doc_id="doc_new_001",
-    title="หัวข้อใหม่",
-    content="เนื้อหาของเอกสาร...",
-    category="หมวดหมู่"
+def add_document(doc_id, title, content, category):
+    # สร้าง embedding
+    embedding = create_document_embedding(title, content)
+    
+    # เตรียมเอกสาร
+    document = {
+        "id": doc_id,
+        "title": title,
+        "content": content,
+        "category": category,
+        "embedding": embedding,
+        "created_at": "2024-01-20T10:00:00Z"
+    }
+    
+    # Index เอกสาร
+    response = client.index(
+        index=OPENSEARCH_INDEX,
+        id=doc_id,
+        body=document
+    )
+    
+    return response
+
+# ตัวอย่างการใช้งาน
+add_document(
+    doc_id="doc_006",
+    title="Internet of Things (IoT)",
+    content="อินเทอร์เน็ตของสรรพสิ่ง คือเครือข่ายของอุปกรณ์ต่างๆ ที่เชื่อมต่อกันผ่านอินเทอร์เน็ต",
+    category="Technology"
 )
 ```
 
-### การดูสถิติ
+### การดูสถิติและจัดการข้อมูล
+
 ```python
 # ดูสถิติ index
-get_index_stats()
+def get_index_stats():
+    try:
+        stats = client.indices.stats(index=OPENSEARCH_INDEX)
+        doc_count = stats['indices'][OPENSEARCH_INDEX]['total']['docs']['count']
+        index_size = stats['indices'][OPENSEARCH_INDEX]['total']['store']['size_in_bytes']
+        
+        print(f"📊 Index Statistics:")
+        print(f"   • Document Count: {doc_count}")
+        print(f"   • Index Size: {index_size / 1024:.2f} KB")
+        print(f"   • Index Name: {OPENSEARCH_INDEX}")
+        
+    except Exception as e:
+        print(f"❌ Error getting stats: {e}")
 
 # ดูรายการเอกสารทั้งหมด
+def list_all_documents():
+    try:
+        response = client.search(
+            index=OPENSEARCH_INDEX,
+            body={
+                "query": {"match_all": {}},
+                "_source": ["id", "title", "category", "created_at"],
+                "size": 100
+            }
+        )
+        
+        print(f"📄 Documents in Index ({response['hits']['total']['value']} total):")
+        for hit in response['hits']['hits']:
+            doc = hit['_source']
+            print(f"   • {doc['id']}: {doc['title']} ({doc['category']})")
+            
+    except Exception as e:
+        print(f"❌ Error listing documents: {e}")
+
+# เรียกใช้ฟังก์ชัน
+get_index_stats()
 list_all_documents()
 ```
-
-## 📚 API Reference
-
-### ฟังก์ชันหลัก
-
-#### `semantic_search(query, top_k=5)`
-ค้นหาด้วย semantic similarity
-
-**Parameters:**
-- `query` (str): คำค้นหา
-- `top_k` (int): จำนวนผลลัพธ์ที่ต้องการ
-
-**Returns:** List of search results with scores
-
-#### `keyword_search(query, top_k=5)`
-ค้นหาด้วย keyword matching
-
-**Parameters:**
-- `query` (str): คำค้นหา  
-- `top_k` (int): จำนวนผลลัพธ์ที่ต้องการ
-
-**Returns:** List of search results with scores
-
-#### `hybrid_search(query, top_k=5, semantic_weight=0.7)`
-ค้นหาแบบผสมผสาน
-
-**Parameters:**
-- `query` (str): คำค้นหา
-- `top_k` (int): จำนวนผลลัพธ์ที่ต้องการ
-- `semantic_weight` (float): น้ำหนักของ semantic search (0.0-1.0)
-
-**Returns:** List of search results with combined scores
-
-### ฟังก์ชันจัดการข้อมูล
-
-#### `add_new_document(doc_id, title, content, category)`
-เพิ่มเอกสารใหม่
-
-#### `batch_add_documents(documents)`
-เพิ่มเอกสารหลายฉบับพร้อมกัน
-
-#### `delete_document(doc_id)`
-ลบเอกสารตาม ID
-
-#### `get_index_stats()`
-ดูสถิติของ index
-
-#### `list_all_documents()`
-แสดงรายการเอกสารทั้งหมด
-
-## 🔮 การพัฒนาต่อ
-
-### 🎨 UI/UX Improvements
-- [ ] สร้าง Web Interface ด้วย Streamlit หรือ FastAPI
-- [ ] เพิ่ม search suggestions และ autocomplete
-- [ ] สร้าง dashboard สำหรับการวิเคราะห์
-
-### 🧠 AI/ML Enhancements
-- [ ] ใช้ model ที่ใหญ่กว่า (BGE, E5) เพื่อความแม่นยำสูงขึ้น
-- [ ] เพิ่ม reranking model
-- [ ] พัฒนา query expansion
-
-### 📄 Document Processing
-- [ ] รองรับไฟล์ PDF, Word, PowerPoint
-- [ ] เพิ่มการ OCR สำหรับรูปภาพ
-- [ ] สร้าง document chunking ที่ดีขึ้น
-
-### 🔧 System Improvements
-- [ ] เพิ่ม caching mechanism
-- [ ] สร้าง monitoring และ logging
-- [ ] เพิ่มการ backup และ recovery
-
-### 🌐 Scalability
-- [ ] รองรับ multi-tenant
-- [ ] เพิ่ม load balancing
-- [ ] สร้าง microservices architecture
 
 ## 🐛 การแก้ไขปัญหา
 
 ### ปัญหาที่พบบ่อย
 
-#### 1. ไม่สามารถเชื่อมต่อ OpenSearch ได้
+#### 1. ไม่สามารถเชื่อมต่อ OpenSearch
 ```
 ❌ ConnectionError: [Errno 111] Connection refused
 ```
-
 **วิธีแก้:**
-- ตรวจสอบว่า OpenSearch server ทำงานอยู่
-- ตรวจสอบ firewall และ network settings
+- ตรวจสอบว่า OpenSearch server ยังทำงานอยู่
 - ลองเปลี่ยน endpoint URL
+- ตรวจสอบ firewall/network
 
-#### 2. Model โหลดช้า
+#### 2. Model โหลดช้าใน Colab
 ```
 Downloading model files...
 ```
-
 **วิธีแก้:**
 - รอให้ download เสร็จ (ครั้งแรกเท่านั้น)
-- ตรวจสอบการเชื่อมต่ออินเทอร์เน็ต
-- ใช้ local model cache
+- ใช้ GPU runtime ใน Colab: Runtime → Change runtime type → GPU
 
-#### 3. Out of Memory Error
+#### 3. Index Name ซ้ำกัน
 ```
-CUDA out of memory
+resource_already_exists_exception
 ```
-
 **วิธีแก้:**
-- ลดขนาด batch size
-- ใช้ CPU แทน GPU
-- ปิดโปรแกรมอื่นที่ใช้ memory
-
-#### 4. Index Error
-```
-IndexNotFoundException
+- เปลี่ยนชื่อใน `OPENSEARCH_INDEX`
+- หรือรัน cell ลบ index ก่อน:
+```python
+if client.indices.exists(index=OPENSEARCH_INDEX):
+    client.indices.delete(index=OPENSEARCH_INDEX)
 ```
 
+#### 4. Memory Error ใน Colab
 **วิธีแก้:**
-- รัน cell สร้าง index ใหม่
-- ตรวจสอบชื่อ index ให้ถูกต้อง
-- ล้าง index เก่าและสร้างใหม่
+- ใช้ High-RAM runtime
+- ลดขนาด batch ในการประมวลผล
+- ปิด cell outputs ที่ไม่จำเป็น
 
-### การตรวจสอบระบบ
+### การตรวจสอบสถานะระบบ
 
 ```python
-# ตรวจสอบการเชื่อมต่อ OpenSearch
-try:
-    info = client.info()
-    print("✅ OpenSearch connection OK")
-except:
-    print("❌ OpenSearch connection failed")
+# เพิ่ม cell เพื่อตรวจสอบระบบ
+def system_check():
+    try:
+        # ตรวจสอบ OpenSearch
+        info = client.info()
+        print(f"✅ OpenSearch OK - Version: {info['version']['number']}")
+        
+        # ตรวจสอบ Model
+        test_embed = model.encode("test")
+        print(f"✅ Model OK - Embedding size: {len(test_embed)}")
+        
+        # ตรวจสอบ Index
+        stats = client.indices.stats(index=OPENSEARCH_INDEX)
+        doc_count = stats['indices'][OPENSEARCH_INDEX]['total']['docs']['count']
+        print(f"✅ Index OK - Documents: {doc_count}")
+        
+    except Exception as e:
+        print(f"❌ Error: {e}")
 
-# ตรวจสอบ model
-try:
-    test_embedding = model.encode("test")
-    print("✅ Model loaded successfully")
-except:
-    print("❌ Model loading failed")
-
-# ตรวจสอบ index
-try:
-    stats = get_index_stats()
-    print("✅ Index is working")
-except:
-    print("❌ Index has issues")
+system_check()
 ```
+
+## 🔮 การพัฒนาต่อ
+
+### 🎨 UI/UX Enhancements
+- [ ] สร้าง Streamlit app สำหรับ web interface
+- [ ] เพิ่ม search filters (category, date range)
+- [ ] สร้าง search analytics dashboard
+
+### 🧠 AI/ML Improvements  
+- [ ] ใช้ larger model เช่น `all-MiniLM-L6-v2`
+- [ ] เพิ่ม reranking mechanism
+- [ ] implement query expansion
+
+### 📄 Document Processing
+- [ ] รองรับ PDF file upload
+- [ ] เพิ่ม text chunking สำหรับเอกสารยาว
+- [ ] OCR สำหรับไฟล์รูปภาพ
+
+### 🛠️ System Features
+- [ ] Batch document processing
+- [ ] API endpoint ด้วย FastAPI
+- [ ] Monitoring และ logging
+
+### 📱 Integration Options
+- [ ] Google Drive integration
+- [ ] Slack/Discord bot
+- [ ] Chrome extension
 
 ## 📞 การติดต่อและการสนับสนุน
 
-- **Issues**: สร้าง issue ใน GitHub repository
-- **Questions**: ใช้ Discussions tab
-- **Contributions**: ส่ง Pull Request
-
-## 📝 License
-
-MIT License - ดูไฟล์ [LICENSE](LICENSE) สำหรับรายละเอียด
+- **GitHub Issues**: รายงานปัญหาหรือขอฟีเจอร์ใหม่
+- **Discussions**: ถาม-ตอบและแลกเปลี่ยนความคิดเห็น
+- **Pull Requests**: ส่งการปรับปรุงโค้ด
 
 ## 🙏 Acknowledgments
 
-- **OpenSearch Community** - สำหรับ search engine ที่ยอดเยี่ยม
-- **Sentence Transformers** - สำหรับ pre-trained models
-- **Hugging Face** - สำหรับ model hub และ libraries
+- **OpenSearch Community** - สำหรับ open-source search engine
+- **Sentence Transformers** - สำหรับ pre-trained embedding models  
+- **Hugging Face** - สำหรับ model hub และเครื่องมือ ML
+- **Google Colab** - สำหรับ free computing resources
+
+## 📄 License
+
+MIT License - ดูไฟล์ [LICENSE](LICENSE) สำหรับรายละเอียด
 
 ---
 
 <div align="center">
 
-**🌟 ถ้าคุณชื่นชอบโครงการนี้ กรุณาให้ star ⭐ และ share ให้เพื่อนๆ ด้วยนะครับ! 🌟**
+**🌟 ถ้าคุณชื่นชอบโปรเจคนี้ กรุณาให้ star ⭐ และแชร์ให้เพื่อนๆ ด้วยนะครับ! 🌟**
+
+**📚 เรียนรู้ Vector Search และ Semantic Retrieval ไปพร้อมๆ กัน! 📚**
 
 Made with ❤️ in Thailand 🇹🇭
 
 </div>
+
+---
+
+## 🔗 Quick Links
+
+- 🚀 [เปิดใน Google Colab](https://colab.research.google.com/github/your-username/Search-by-Retriever-System-with-OpenSearch/blob/main/opensearch_retriever.ipynb)
+- 📖 [OpenSearch Documentation](https://opensearch.org/docs/)
+- 🤗 [Sentence Transformers Documentation](https://www.sbert.net/)
+- 💡 [Hugging Face Models](https://huggingface.co/sentence-transformers)
